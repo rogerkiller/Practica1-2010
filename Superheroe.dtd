@@ -1,0 +1,57 @@
+<?xml encoding="utf-8"?>
+
+<!ELEMENT Superheroe (HeroeID,NombreHeroe,SecretID,Genero,Procedencia,Batalla,Habilidades)>
+<!ATTLIST Superheroe
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Batalla (IDBatalla,Lugar,FechaIni,FechaFin)>
+<!ATTLIST Batalla
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Habilidades (Tipo,Definicion)>
+<!ATTLIST Habilidades
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT HeroeID (#PCDATA)>
+<!ATTLIST HeroeID
+  xmlns CDATA #REQUIRED>
+
+<!ELEMENT NombreHeroe (#PCDATA)>
+<!ATTLIST NombreHeroe
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT SecretID (#PCDATA)>
+<!ATTLIST SecretID
+  xmlns CDATA #REQUIRED>
+
+<!ELEMENT Genero (#PCDATA)>
+<!ATTLIST Genero
+  xmlns CDATA #REQUIRED>
+
+<!ELEMENT Procedencia (#PCDATA)>
+<!ATTLIST Procedencia
+  xmlns CDATA "Terrestre">
+
+<!ELEMENT Tipo (#PCDATA)>
+<!ATTLIST Tipo
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Definicion (#PCDATA)>
+<!ATTLIST Definicion
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT IDBatalla (#PCDATA)>
+<!ATTLIST IDBatalla
+  xmlns CDATA #IMPLIED>
+
+<!ELEMENT Lugar (#PCDATA)>
+<!ATTLIST Lugar
+  xmlns CDATA #IMPLIED>
+
+<!ELEMENT FechaIni (#PCDATA)>
+<!ATTLIST FechaIni
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT FechaFin (#PCDATA)>
+<!ATTLIST FechaFin
+  xmlns CDATA #FIXED ''>
