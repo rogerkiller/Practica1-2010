@@ -1,5 +1,21 @@
 <?xml encoding="utf-8"?>
 
+<!ELEMENT SuperheroeBBDD (DatosBBDD,Superheroes)>
+<!ATTLIST SuperheroeBBDD
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT DatosBBDD (BBDDid)>
+<!ATTLIST DatosBBDD
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT BBDDid (#PCDATA)>
+<!ATTLIST BBDDid
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Superheroes (Superheroe)>
+<!ATTLIST Superheroes
+  xmlns CDATA #FIXED ''>
+
 <!ELEMENT Superheroe (HeroeID,NombreHeroe,SecretID,Genero,Procedencia,Batalla,Habilidades)>
 <!ATTLIST Superheroe
   xmlns CDATA #FIXED ''>
