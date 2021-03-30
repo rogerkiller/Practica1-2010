@@ -16,12 +16,12 @@
 <!ATTLIST Superheroes
   xmlns CDATA #FIXED ''>
 
-<!ELEMENT Superheroe (HeroeID,NombreHeroe,SecretID,Genero,Procedencia,Batalla,Habilidades)>
+<!ELEMENT Superheroe (HeroeID,NombreHeroe,SecretID,Genero,Procedencia,Batallas,Habilidades)>
 <!ATTLIST Superheroe
   xmlns CDATA #FIXED ''>
 
-<!ELEMENT Batalla (IDBatalla,Lugar,FechaIni,FechaFin)>
-<!ATTLIST Batalla
+<!ELEMENT Batallas (IDBatalla,Lugar,FechaIni,FechaFin)>
+<!ATTLIST Batallas
   xmlns CDATA #FIXED ''>
 
 <!ELEMENT Habilidades (Tipo,Definicion)>
@@ -62,7 +62,7 @@
 
 <!ELEMENT Lugar (#PCDATA)>
 <!ATTLIST Lugar
-  xmlns CDATA #IMPLIED>
+  xmlns CDATA #FIXED ''>
 
 <!ELEMENT FechaIni (#PCDATA)>
 <!ATTLIST FechaIni
