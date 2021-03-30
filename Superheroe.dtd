@@ -10,7 +10,7 @@
 
 <!ELEMENT BBDDid (#PCDATA)>
 <!ATTLIST BBDDid
-  xmlns CDATA #FIXED ''>
+  xmlns CDATA #REQUIRED>
 
 <!ELEMENT Superheroes (Superheroe)>
 <!ATTLIST Superheroes

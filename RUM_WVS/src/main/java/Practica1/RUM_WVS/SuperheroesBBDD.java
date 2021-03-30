@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
@@ -53,12 +51,29 @@ public class SuperheroesBBDD {
 			doc.getRootElement().addContent(node1);
 
 			Element node2 = new Element("Heroes");
-			for (Heroes cliente : heroes) {
+			for (Heroes heroe : heroes) {
 				Element node21 = new Element("Heroe");
-				node21.addContent(new Element("Nombre").setText(cliente.getNombreHeroe()));
-				node21.addContent(new Element("Identidad").setText(cliente.getSecretID()));
-				node21.addContent(new Element("Batallas").setText(cliente.getBatallas().toString()));
-				node21.addContent(new Element("Habilidades").setText(cliente.getHabilidades().toString()));
+				node21.addContent(new Element("Nombre").setText(heroe.getNombreHeroe()));
+				node21.addContent(new Element("Identidad").setText(heroe.getSecretID()));
+				node21.addContent(new Element("Batallas").setText(heroe.getBatallas().toString()));
+				node21.addContent(new Element("Habilidades").setText(heroe.getHabilidades().toString()));
+				
+				for (Batallas batalla : heroe.getBatallas()) {
+					Element node211 = new Element("Batallas");
+					node211.addContent(new Element("IDBatalla").setText(Integer.toString(batalla.getIDBatalla())));
+					node211.addContent(new Element("Lugar").setText(batalla.getLugar()));
+					node211.addContent(new Element("FechaIni").setText(batalla.getFechaIni().toString()));
+					node211.addContent(new Element("FechaFin").setText(batalla.getFechaFin().toString()));
+										
+					node21.addContent(node211);
+				}
+				for (Habilidades habilidades : heroe.getHabilidades()) {
+					Element node212 = new Element("Habilidades");
+					node212.addContent(new Element("Tipo").setText(habilidades.getTipo()));
+					node212.addContent(new Element("Definicion").setText(habilidades.getDefinicion()));
+										
+					node21.addContent(node212);
+				}
 				}
 
 				node2.addContent(node2);
@@ -96,11 +111,11 @@ public class SuperheroesBBDD {
 				for (Element node211 : node21.getChildren("Batallas")) {
 					for (Element node2111 : node21.getChildren("Habilidades")) {
 						for (int i = 0; i < heroes.size(); i++) {
-							String s = node21.getChildText("HeroeID");
 							heroes.add(new Heroes(Integer.parseInt(node21.getChildText("HeroeID")), node21.getChildText("NombreHeroe"), node21.getChildText("SecretID"), 
-									node21.getChildText("Genero"), node21.getChildText("Procedencia"), new ArrayList<Batallas>(), new ArrayList<Habilidades>()));
+									node21.getChildText("Genero"), node21.getChildText("Procedencia"), null,null));
 							heroes.get(i).getBatallas().add(new Batallas(Integer.parseInt(node211.getChildText("IDBatalla")), node21.getChildText("Lugar"), 
 									new SimpleDateFormat("dd/MM/yyyy").parse(node21.getChildText("Genero")), new SimpleDateFormat("dd/MM/yyyy").parse(node21.getChildText("Genero"))));
+							heroes.get(i).getHabilidades().add(new Habilidades(node2111.getChildText("Tipo"), node21.getChildText("Definicion")));
 						}
 					}	
 				}
@@ -111,6 +126,88 @@ public class SuperheroesBBDD {
 			return false;
 		}
 		return true;
+	}
+	
+	public void printBBDD(String encabezado, boolean mostrarInfoBDD, boolean mostrarHeroe,
+			boolean mostrarBatallas) {
+			String output = "=================[ " + encabezado + " ]=================\n";
+	
+			if (mostrarInfoBDD) {
+				output += "- Datos de la base\n";
+				output += "\tBBDDid: " + BBDDid + "\n";
+			}
+	
+			if (mostrarHeroe) {
+				output += "\n- Heroes\n";
+				if (heroes.size() > 0) {
+					for (Heroes heroe : heroes) {
+						output += "\t[Nombre: " + heroe.getNombreHeroe()
+						+ "\n\tHeroeID: " + heroe.getHeroeID()
+						+ "\n\tSecretID: " + heroe.getSecretID()
+						+ "\n\tGenero: " + heroe.getGenero()
+						+ "\n\tProcedencia: " + heroe.getProcedencia()
+						+ "\n\tHabilidades: " + heroe.getHabilidades();
+						
+						for (int i = 0; i < heroe.getBatallas().size(); i++) {
+							if(heroes.get(i).getBatallas().size() > 0) {
+								output += "\n\t\tTipo: " + heroe.getHabilidades().get(i).getTipo()
+										+ "\n\t\tDefinicion: " + heroe.getHabilidades().get(i).getDefinicion() + "]\n";	
+							}
+							else {
+								output += "\tSin Habilidades...\n";
+							}
+						}
+					}
+				}
+			}
+				
+			if (mostrarBatallas) {
+				output += "\n- Heroes\n";
+				if (heroes.size() > 0) {
+					for (Heroes heroe : heroes) {
+						output += "\t[Nombre: " + heroe.getNombreHeroe()
+						+ "\n\tHeroeID: " + heroe.getHeroeID();
+												
+						for (int i = 0; i < heroe.getBatallas().size(); i++) {
+							if(heroes.get(i).getBatallas().size() > 0) {
+								output += "\n\t\tIDBatalla: " + heroe.getBatallas().get(i).getIDBatalla()
+										+ "\n\t\tLugar: " + heroe.getBatallas().get(i).getLugar()
+										+ "\n\t\tFecha de Inicio: " + heroe.getBatallas().get(i).getFechaIni()
+										+ "\n\t\tFecha de finalizacion: " + heroe.getBatallas().get(i).getFechaFin() + "]\n";	
+							}
+							else {
+								output += "\tSin Batallas...\n";
+							}
+						}
+					}
+				}
+			else {
+				output += "\tSin clientes...\n";
+			}
+			System.out.println(output);
+		}
+		
+	}
+	
+	public void addHeroes(Heroes heroe) {
+		this.heroes.add(heroe);
+	}
+	
+	public String toJSON() {		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();		
+		return gson.toJson(this);
+	}
+	
+	public String getBBDDid() {
+		return BBDDid;
+	}
+
+	public void setBBDDid(String BBDDid) {
+		this.BBDDid = BBDDid;
+	}
+	
+	public ArrayList<Heroes> getHeroes() {
+		return heroes;
 	}
 
 }

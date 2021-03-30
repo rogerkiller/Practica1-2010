@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SuperheroeBBDD>
+  <DatosBBDD>
+    <BBDDid>1</BBDDid>
+  </DatosBBDD>
+  <Superheroes>
+    <Superheroe>
+      <HeroeID>6762</HeroeID>
+      <NombreHeroe>Superman</NombreHeroe>
+      <SecretID>Clark Kent</SecretID>
+      <Genero>Hombre</Genero>
+      <Procedencia>Extraterrestre</Procedencia>
+      <Batallas>
+        <IDBatalla>50</IDBatalla>
+        <Lugar>Gibraltar</Lugar>
+        <FechaIni>06/01/2020</FechaIni>
+        <FechaFin>10/11/2020</FechaFin>
+      </Batallas>
+      <Habilidades>
+        <Tipo>Sobrenatural</Tipo>
+        <Definicion>Superfuerza, Rayos laser, capacidad de vuelo</Definicion>
+      </Habilidades>
+    </Superheroe>
+  </Superheroes>
+</SuperheroeBBDD>
