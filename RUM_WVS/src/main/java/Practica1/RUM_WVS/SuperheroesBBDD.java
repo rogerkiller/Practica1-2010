@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 
-
 public class SuperheroesBBDD {
 	
 	private String BBDDid;
@@ -40,6 +39,43 @@ public class SuperheroesBBDD {
 		this.BBDDid = BBDDid;
 		this.heroes = new ArrayList<Heroes>();
 	}
+	
+	
+	public boolean saveFile(String path) {
+		try {
+
+			Element rootNode = new Element("SuperheroesBBDD_" + BBDDid);
+			Document doc = new Document(rootNode);
+
+			Element node1 = new Element("DatosSuperheroes");
+			node1.addContent(new Element("BBDDid").setText(BBDDid));
+
+			doc.getRootElement().addContent(node1);
+
+			Element node2 = new Element("Heroes");
+			for (Heroes cliente : heroes) {
+				Element node21 = new Element("Heroe");
+				node21.addContent(new Element("Nombre").setText(cliente.getNombreHeroe()));
+				node21.addContent(new Element("Identidad").setText(cliente.getSecretID()));
+				node21.addContent(new Element("Batallas").setText(cliente.getBatallas().toString()));
+				node21.addContent(new Element("Habilidades").setText(cliente.getHabilidades().toString()));
+				}
+
+				node2.addContent(node2);
+			
+			XMLOutputter xmlOutput = new XMLOutputter();
+
+			xmlOutput.setFormat(Format.getPrettyFormat().setEncoding("UTF-8"));
+			xmlOutput.output(doc, new FileWriter(path));
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+
+		return true;
+	}
+	
 	
 	public boolean loadFile(String path) {
 		SAXBuilder builder = new SAXBuilder();
